@@ -1,12 +1,27 @@
-#include "Battleships.h"
+#include "screen.h"
+#include "referees.h"
 
 int main()
 {
-	Battleships a;
-	a.cover();
-	a.setup();
+	referees referi;
 
-	//std::cout << a.field[1][1];
+	//referi.showScreen();
+
+	referi.loadShips();
+
+	//referi.input();
+
+	referi.man.randomSetShips();
+
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = 0; j < 10; ++j)
+		{
+			std::cout << referi.man.field[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
 }
 
 //int main(int argc, char** argv)

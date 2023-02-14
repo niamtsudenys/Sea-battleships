@@ -106,7 +106,7 @@ void Battleships::setup()
 		}
 
 		if (buttonIsPressed < 0)
-			buttonIsPressed = 3;
+			buttonIsPressed = 2;
 		else if (buttonIsPressed > 2)
 			buttonIsPressed = 0;
 
@@ -127,10 +127,10 @@ void Battleships::setup()
 	//randomInstallationOfShips(fieldBot, shipsBot);
 	
 
-	gameMode = 1;
+	//gameMode = 1;
 
-	buttonsOnTheRightSide();
-	midButtons();
+	//buttonsOnTheRightSide();
+	//midButtons();
 
 	gotoxy(0, 31);
 	set_col(color::black, color::white);
@@ -142,11 +142,6 @@ void Battleships::setup()
 			std::cout << fieldMan[i][j];
 		}
 		std::cout << std::endl;
-	}
-
-	for (int i = 0; i < 10; ++i)
-	{
-		std::cout << shipsMan[i];
 	}
 }
 
@@ -297,161 +292,124 @@ void Battleships::midButtons()
 
 void Battleships::randomInstallationOfShips(int** field, std::vector<int>& ships)
 {
-	for (int i = 0; i < ships.size(); ++i)
+	int it = 0;
+
+	for (int i = 0; i < sizeField; ++i)
 	{
-		bool setShip = false;
-		int sizeShip = 0;
+		bool setShip = false;                 // true esli korabeli ustanovilsya
+		int x = 0;                            // cordinaty pervoi tochki korablya
+		int y = 0;
+		bool installationPossible = true;     // true esli danyi korabeli vozmojno ustanovity
 
 		for (; !setShip;)
 		{
+			++it;
 			srand(time(NULL));
 
-			int x = rand() % sizeField;             // pervichnaya pozitsiya
-			int y = rand() % sizeField;
+			// generatsiya sluchaynogo napravleniya rosta korablya
+			int direction = rand() % 4;
 
-			int direction = rand() % 4;             // generatsiya sluchaynogo napravleniya rosta korablya
-			
+			if (direction < 2)
+				y = rand() % sizeField;
+			else
+				x = rand() % sizeField;
+
+
+			if (direction == 0)
+			{
+				do                                  // ispolyzuyu tsikl do chtoby hoty odin raz tsycl srabotal
+				{
+					x = rand() % sizeField;         // pervichnaya pozitsiya
+				} while (x > sizeField - ships[i]); // proveryaem esli korabeli pomechyaetsa v pole ot tochki x,y vpravo
+			}
+			else if (direction == 1)
+			{
+				do                                  // ispolyzuyu tsikl do chtoby hoty odin raz tsycl srabotal
+				{
+					x = rand() % sizeField;         // pervichnaya pozitsiya
+				} while (x < ships[i] - 1);         // proveryaem esli korabeli pomechyaetsa v pole ot tochki s koordinatami x,y vlevo
+			}
+			else if (direction == 2)
+			{
+				do                                  // ispolyzuyu tsikl do chtoby hoty odin raz tsycl srabotal
+				{
+					y = rand() % sizeField;        // pervichnaya pozitsiya
+				} while (y > sizeField - ships[i]); // proveryaem esli korabeli pomechyaetsa v pole ot tochki s koordinatami x,y vniz
+			}
+			else
+			{
+				do                                  // ispolyzuyu tsikl do chtoby hoty odin raz tsycl srabotal
+				{
+					y = rand() % sizeField;         // pervichnaya pozitsiya
+				} while (y < ships[i] - 1);         // proveryaem esli korabeli pomechyaetsa v pole ot tochki s koordinatami x,y vverh
+			}
+
+			if (direction == 1)
+			{
+				x = x + 1 - ships[i]; // menyaem koordinaty pervoi paluby na posledniuiu paluby korablya i stroim                  
+				direction = 0;        // korabely v druguiu storonu chtoby ne dublirovaty cod
+			}
+
+			if (direction == 3)
+			{
+				y = y + 1 - ships[i]; // menyaem koordinaty pervoi paluby na posledniuiu paluby korablya i stroim                  
+				direction = 2;        // korabely v druguiu storonu chtoby ne dublirovaty cod
+			}
+
 			////// proverka vozmojnosti postanovki korablya ///////////////////////////////////////////////////////////////////
-			bool installationPossible = true;
-
-			switch (direction)
+			if (!direction)
 			{
-			case 0:
-			{
-				if (sizeField - x >= ships[i])  // proveryaem esli korabeli pomechyatsa v pole ot koordinat x,y vpravo
+				for (int k = std::max(0, y - 1); k <= std::min(9, y + 1); ++k)
 				{
-					for (int j = 0; j < ships[i]; ++j)
+					for (int j = std::max(0, x - 1); j <= std::min(9, x + ships[i]); ++j)
 					{
-						if (x == 0 && j == 0)
-						{
-							if (field[y][x + j] != 0)      // proveryaem esli kletki svobodnye dlya postanovki
-							{
-								installationPossible = false;
-								break;
-							}
-						}
-					}
-				}
-				else
-				{
-					installationPossible = false;
-					break;
-				}
-			}
-
-				break;
-
-			case 1:
-			{
-				if (x + 1 >= ships[i])  // proveryaem esli vesy korabeli pomechyatsa v pole ot koordinat x,y vlevo
-				{
-					for (int j = 0; j < ships[i]; ++j)   // proveryaem esli kletki svobodnye dlya postanovki
-					{
-						if (field[y][x - j] != 0)
+						if (field[k][j] == 1)
 						{
 							installationPossible = false;
 							break;
 						}
 					}
-				}
-				else
-				{
-					installationPossible = false;
-					break;
+
+					if (installationPossible == false)
+						break;
 				}
 			}
-
-				break;
-
-			case 2:
+			if (direction == 2)
 			{
-				if (sizeField - y >= ships[i])  // proveryaem esli vesy korabeli pomechyatsa v pole ot koordinat x,y vniz
+				for (int k = std::max(0, y - 1); k <= std::min(9, y + ships[i]); ++k)
 				{
-					for (int j = 0; j < ships[i]; ++j)   // proveryaem esli kletki svobodnye dlya postanovki
+					for (int j = std::max(0, x - 1); j <= std::min(9, x + 1); ++j)
 					{
-						if (field[y + j][x] != 0)
+						if (field[k][j] == 1)
 						{
 							installationPossible = false;
 							break;
 						}
 					}
-				}
-				else
-				{
-					installationPossible = false;
-					break;
-				}
-			}
 
-				break;
-
-			case 3:
-			{
-				if (y + 1 >= ships[i])  // proveryaem esli vesy korabeli pomechyatsa v pole ot koordinat x,y vverh
-				{
-					for (int j = 0; j < ships[i]; ++j)   // proveryaem esli kletki svobodnye dlya postanovki
-					{
-						if (field[y - j][x] != 0)
-						{
-							installationPossible = false;
-							break;
-						}
-					}
+					if (installationPossible == false)
+						break;
 				}
-				else
-				{
-					installationPossible = false;
-					break;
-				}
-			}
-
-				break;
 			}
 
 			// esli est' vozmozhnost' postavit' korabl' to stavim
 			if (installationPossible)
 			{
-				switch (direction)
-				{
-				case 0:
-					for (int j = 0; j < ships[i]; ++j) 
-					{
-						field[y][x + j] = i;
-					}
+				if (direction == 0)
+					for (int j = x; j < x + ships[i]; ++j)
+						field[y][j] = 1;
 
-					break;
-
-				case 1:
-					for (int j = 0; j < ships[i]; ++j)
-					{
-						field[y][x - j] = i;
-					}
-
-					break;
-
-				case 2:
-					for (int j = 0; j < ships[i]; ++j)
-					{
-						field[y + j][x] = i;
-					}
-
-					break;
-
-				case 3:
-					for (int j = 0; j < ships[i]; ++j)
-					{
-						field[y - j][x] = i;
-					}
-
-					break;
-				}
+				if (direction == 2)
+					for (int j = y; j < y + ships[i]; ++j)
+						field[j][x] = 1;
 
 				setShip = true;
 			}
 		}
 	}
-}
 
+	std::cout << it << std::endl;
+}
 
 
 void Battleships::manualInstallationOfShips(int** field, std::vector<int>& ships)

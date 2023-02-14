@@ -1,9 +1,12 @@
 #pragma once
+#define NOMINMAX
 #include <iostream> 
 #include <Windows.h>
 #include <vector>
-#include <string>
 #include <conio.h>
+//#include <ctime>
+//#include <string>
+
 
 class Battleships
 {
