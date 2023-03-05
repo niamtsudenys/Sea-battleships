@@ -38,4 +38,6 @@ public:
 	void message(std::string sMs, int str = 1);
 
 	void clearLiterEandB();
+
+	void clearLiterC();
 };

@@ -263,3 +263,13 @@ void screen::clearLiterEandB()
 
 	gotoxy(120, 0);
 }
+
+void screen::clearLiterC()
+{
+	set_col(color::white, color::white);
+
+	gotoxy(95, 29);
+	std::cout << " ";
+
+	gotoxy(120, 0);
+}
