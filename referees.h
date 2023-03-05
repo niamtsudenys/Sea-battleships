@@ -1,15 +1,15 @@
 #pragma once
-#include "screen.h"
 #include "player.h"
-#include <conio.h>
 
-class referees : public screen
+class referees
 {
 public:
 
 	bool gameMode;
 	bool gameOver;
 	int buttonIsPressed;
+	bool play;
+	bool turn;
 
 	player man;
 	player bot;
@@ -23,4 +23,22 @@ public:
 	void loadShips();
 
 	void input();       // vybor rejima igry
+
+	std::string logic();
+
+	void firstMove();
+
+	void coordinatesFirstCellField();
+
+	void shuffleManShips();
+
+	void back();
+
+	void restart();
+
+	void showScore();
+
+	std::string menuAfterTheBattle(bool i = 0);
+
+	void forMenuAfterTheBattlel(bool i);
 };

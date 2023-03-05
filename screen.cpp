@@ -1,17 +1,6 @@
 #include "screen.h"
 
-screen::screen(): colorLateralShips(0) {}
-
-void screen::set_col(color foreground, color background)
-{
-	SetConsoleTextAttribute(hout, ((short)background << 4) | (short)foreground);
-}
-
-void screen::gotoxy(int x, int y)
-{
-	COORD p = { x, y };
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
-}
+screen::screen(): colorLateralShips(0), shipsOnField(0) {}
 
 void screen::fon()
 {
@@ -97,7 +86,7 @@ void screen::paintField()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		gotoxy(69, 11 + i);
+		gotoxy(90, 11 + i);
 		set_col(color::black, color::white);
 		std::cout << i;
 	}
@@ -113,23 +102,10 @@ void screen::paintField()
 	}
 }
 
-void screen::buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed)
+void screen::buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed, bool& play)
 {
 	// buttons
-	gotoxy(103, 23);
-	if (!gameMode)
-	{
-		if (buttonIsPressed == 0)
-			set_col(color::red, color::white);
-		else
-			set_col(color::blue, color::white);
-	}
-	else
-		set_col(color::lightgray, color::white);
-	std::cout << "Randomly";
-
-
-	gotoxy(103, 25);
+	gotoxy(110, 25);
 	if (!gameMode)
 	{
 		if (buttonIsPressed == 1)
@@ -139,9 +115,9 @@ void screen::buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed)
 	}
 	else
 		set_col(color::lightgray, color::white);
-	std::cout << "Manual";
+	std::cout << "Randomly";
 
-	gotoxy(103, 27);
+	gotoxy(110, 27);
 	if (!gameMode)
 	{
 		if (buttonIsPressed == 2)
@@ -151,33 +127,139 @@ void screen::buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed)
 	}
 	else
 		set_col(color::lightgray, color::white);
+	std::cout << "Manual";
+
+	gotoxy(110, 29);
+	if (!gameMode)
+	{
+		if (buttonIsPressed == 3)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
+	else
+		set_col(color::lightgray, color::white);
 	std::cout << "Exit";
 
-	gotoxy(0, 30);
+	gotoxy(119, 0);
 }
 
-void screen::midButtons(bool& gameMode)
+void screen::bottomButtons(bool gameMode, int buttonIsPressed, bool play)
 {
-	gotoxy(57, 13);
-	if (!gameMode)
-		set_col(color::lightgray, color::white);
+	gotoxy(63, 29);
+	if (gameMode && !play)
+	{
+		if (buttonIsPressed == 0)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
 	else
-		set_col(color::blue, color::white);
+		set_col(color::lightgray, color::white);
 	std::cout << "Play";
 
-	gotoxy(56, 15);
-	if (!gameMode)
-		set_col(color::lightgray, color::white);
+	gotoxy(71, 29);
+	if (gameMode && !play)
+	{
+		if (buttonIsPressed == 1)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
 	else
-		set_col(color::blue, color::white);
-	std::cout << "Restart";
-
-	gotoxy(55, 17);
-	if (!gameMode)
 		set_col(color::lightgray, color::white);
+	std::cout << "Shuffle";
+	
+	gotoxy(82, 29);
+	if (gameMode && play)
+	{
+		if (buttonIsPressed == 2)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
 	else
-		set_col(color::blue, color::white);
-	std::cout << "Surrender";
+		set_col(color::lightgray, color::white);
+	std::cout << "Capitulation c";
 
-	gotoxy(0, 30);
+	gotoxy(100, 29);
+	if (gameMode && !play)
+	{
+		if (buttonIsPressed == 4)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
+	else
+		set_col(color::lightgray, color::white);
+	if (play)
+		std::cout << "Back b";
+	else
+		std::cout << "Back";
+		
+	
+	gotoxy(110, 29);
+	if (gameMode)
+	{
+		if (buttonIsPressed == 5)
+			set_col(color::red, color::white);
+		else
+			set_col(color::blue, color::white);
+	}
+	else
+		set_col(color::lightgray, color::white);
+	if (play)
+		std::cout << "Exit e";
+	else
+		std::cout << "Exit";
+
+	gotoxy(119, 0);
+}
+
+void screen::message(std::string sMs, int str)
+{
+	set_col(color::white, color::white);                 // udalyaem starye sms
+
+	if (str == 1)
+	{
+		gotoxy(120 / 2 - 10, 13);                         // esli menyaetsya hod to chistim i 1 i 2 ryad
+		std::cout << "                    ";
+		gotoxy(120 / 2 - 10, 15);
+		std::cout << "                    ";
+		gotoxy(119, 0);
+	}
+	else
+	{
+		gotoxy(120 / 2 - 8, 15);                        // histim tolyko vtoroi riad
+		std::cout << "                ";
+		gotoxy(119, 0);
+		Sleep(500);
+	}
+	
+	if (str == 1)
+		gotoxy(120 / 2 - sMs.length() / 2, 13);      // stavim kursor na 1 str
+	else
+		gotoxy(120 / 2 - sMs.length() / 2, 15);      // stavim kursor na 2 str
+		
+	if (sMs == "Welcome!")
+		set_col(color::lightblue, color::yellow);
+	else
+		set_col(color::red, color::white);
+	
+	std::cout << sMs;
+
+	gotoxy(119, 0);
+}
+
+void screen::clearLiterEandB()
+{
+	set_col(color::white, color::white);
+
+	gotoxy(115, 29);
+	std::cout << " ";
+
+	gotoxy(105, 29);
+	std::cout << " ";
+
+	gotoxy(120, 0);
 }

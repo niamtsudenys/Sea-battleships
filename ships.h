@@ -10,6 +10,7 @@ public:
 	int coordX;
 	int coordY;
 
+	bool takeDamage;
+
 	ships();
 };
-

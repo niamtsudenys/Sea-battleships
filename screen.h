@@ -1,32 +1,27 @@
 #pragma once
-#include <iostream>
-#include <Windows.h>
-#include <vector>
+#include "cursor.h"
 
-class screen
+class screen : public cursor
 {
 public:
-	screen();
-
 	int colorLateralShips;
+	bool shipsOnField;
+
+	screen();
 
 	std::vector<int> coordXYLateralShipsMan{ 612, 614, 1514, 616, 1316, 2016, 618, 1118, 1618, 2118 };
 	std::vector<int> coordXYLateralShipsBot{ 9612, 9614, 10514, 9616, 10316, 11016, 9618, 10118, 10618, 11118 };
 
 	// jizni korablei, kolichestvo palub
 	std::vector<int> decksShips{ 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
-	
-	enum class color
+
+	std::vector<std::string> sms
 	{
-		black, blue, green, cyan, red, magenta, brown, lightgray, darkgray,
-		lightblue, lightgreen, lightcyan, lightred, lightmagenta, yellow, white
+		"Welcome!", "Your turn!", "Opponent turn!", "You hit!", "Opponent hit!", "Miss!", "Ship destroyed!", 
+		"You have won!", "You lose!", "Congratulations!", "Unfortunately!", "See you later!!", 
+		"Shoot with keyboard", "Shoot with mouse", "Keybord control", "Mouse control", "Put ships", "Go!!! Go!!! Go!!!",
+		"Go random", "Go manual"
 	};
-
-	HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	void set_col(color foreground, color background);
-
-	void gotoxy(int x, int y);
 	
 	void fon();     // zalivka ekrana
 
@@ -36,7 +31,11 @@ public:
 
 	void paintField();
 
-	void buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed);
+	void buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed, bool& play);
 
-	void midButtons(bool& gameMode);
+	void bottomButtons(bool gameMode, int buttonIsPressed, bool play);
+
+	void message(std::string sMs, int str = 1);
+
+	void clearLiterEandB();
 };
