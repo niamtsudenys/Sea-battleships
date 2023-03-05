@@ -210,8 +210,6 @@ link:
 			if (GetKeyState(VK_LBUTTON) & 0x8000) // esli najali knopku mishi
 			{
 				man.posXY();
-				man.gotoxy(0, 0);
-				std::cout << man.mousePosition.at(0) << " " << man.mousePosition.at(1);
 
 				if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 63 && man.mousePosition.at(0) < 67) && man.mousePosition.at(1) == 29)
 				{
@@ -357,8 +355,6 @@ std::string referees::logic()
 
 	if (gameOver)
 	{
-		showScore();
-		
 		if (bot.lost == 1)
 		{
 			man.message(man.sms.at(9));
@@ -372,6 +368,8 @@ std::string referees::logic()
 			man.message(man.sms.at(8), 2);
 			++bot.victory;
 		}
+
+		showScore();
 
 		back();
 
@@ -421,6 +419,9 @@ void referees::back()
 	man.clearMasiv();
 	bot.clearMasiv();
 
+	man.countShip = 0;
+	bot.countShip = 0;
+
 	gameMode = 0;
 	gameOver = 0;
 	buttonIsPressed = 1;
@@ -441,12 +442,20 @@ void referees::back()
 	man.mousePosition.at(1) = 0;
 }
 
-void referees::restart()
+void referees::restart(bool modeSetShips)
 {
 	back();
 
-	man.randomSetShips();
-	bot.randomSetShips();
+	if (!modeSetShips)
+	{
+		man.randomSetShips();
+		bot.randomSetShips();
+	}
+	else
+	{
+		man.manualSetShips();
+		bot.randomSetShips();
+	}
 	
 	man.drawOnTheField();                    // obnovlyaem risunok poley
 	bot.drawOnTheField(2);
@@ -472,8 +481,10 @@ void referees::showScore()
 	std::cout << "man " << man.victory << " : " << bot.victory << " bot";
 }
 
-std::string referees::menuAfterTheBattle(bool i)
+std::string referees::menuAfterTheBattle()
 {
+	bool i = 0;
+	
 	man.message(man.sms.at(18));
 	man.message(man.sms.at(19), 2);
 
@@ -485,8 +496,6 @@ std::string referees::menuAfterTheBattle(bool i)
 	{
 		if (_kbhit())
 		{
-			forMenuAfterTheBattlel(i);
-
 			int ch = _getch();
 
 			switch (ch)
@@ -512,6 +521,8 @@ std::string referees::menuAfterTheBattle(bool i)
 				exit(0);
 				break;
 			}
+
+			forMenuAfterTheBattlel(i);
 		}
 		else
 		{
@@ -539,21 +550,16 @@ std::string referees::menuAfterTheBattle(bool i)
 					Sleep(500);
 					exit(0);
 				}
+
+				forMenuAfterTheBattlel(i);
+
 			}
 		}
 
-		/*if (i < 0)
-			i = 1;
-
-		if (i > 1)
-			i = 0;*/
+		man.gotoxy(0, 0);
+		man.set_col(cursor::color::blue, cursor::color::white);
+		std::cout << i;
 	}
-
-	/*if (i < 0)
-		i = 1;
-
-	if (i > 1)
-		i = 0;*/
 
 	if (!i)
 		return "r";

@@ -34,11 +34,11 @@ public:
 
 	void back();
 
-	void restart();
+	void restart(bool modeSetShips = false);
 
 	void showScore();
 
-	std::string menuAfterTheBattle(bool i = 0);
+	std::string menuAfterTheBattle();
 
 	void forMenuAfterTheBattlel(bool i);
 };
