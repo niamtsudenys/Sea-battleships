@@ -262,6 +262,8 @@ int player::manualSetShips()
 			{
 				navedenieNaTseliMishkoi();
 
+				clearLiterEandB();
+
 				if (mousePosition.at(0) >= 30 && mousePosition.at(0) <= 49 && mousePosition.at(1) >= 11 && mousePosition.at(1) <= 20)
 				{
 					x = mousePosition.at(0); // pritsel dvigaetsya toliko togda kogda mishka vnutri polya bota
@@ -514,6 +516,9 @@ void player::attackMan(bool& turn, player& bot)
 		}
 		else              // upravlenie mishkoi
 		{
+			clearLiterEandB();
+			clearLiterC();
+			
 			navedenieNaTseliMishkoi();
 			if (mousePosition.at(0) >= 70 && mousePosition.at(0) <= 89 && mousePosition.at(1) >= 11 && mousePosition.at(1) <= 20)
 			{
@@ -583,7 +588,7 @@ void player::attackMan(bool& turn, player& bot)
 			}
 
 			if (bot.field[i][j] == 2 || bot.field[i][j] == 3)
-				break;// continue;
+				break;
 
 			if (bot.field[i][j] == 1)
 			{
@@ -624,6 +629,9 @@ void player::attackBot(bool& turn, player& man)
 
 		if (!shootMod)
 		{   
+			dirs.clear();                  // ohichaem vector
+			dirs = { 3, 2, 1, 0 };         // posle togo kak zatopili korabeli vostanavlivaem vse napravleniya
+			
 			do
 			{
 				firstShotI = rand() % sizeField;
@@ -930,8 +938,6 @@ std::string player::mouseOrKeybordControl(int i, int instalOrHit)
 	{
 		if (_kbhit())
 		{
-			forMouseOrKeybordControl(i, instalOrHit);
-
 			int ch = _getch();
 
 			switch (ch)
@@ -961,6 +967,14 @@ std::string player::mouseOrKeybordControl(int i, int instalOrHit)
 				exit(0);
 				break;
 			}
+
+			if (i < 0)
+				i = 1;
+
+			if (i > 1)
+				i = 0;
+
+			forMouseOrKeybordControl(i, instalOrHit);
 		}
 		else
 		{
@@ -1001,14 +1015,10 @@ std::string player::mouseOrKeybordControl(int i, int instalOrHit)
 					mousePosition.at(1) = 0;
 					break;
 				}
+
+				forMouseOrKeybordControl(i, instalOrHit);
 			}
 		}
-
-		if (i < 0)
-			i = 1;
-		
-		if (i > 1)
-			i = 0;
 	}
 
 	if (!i)
