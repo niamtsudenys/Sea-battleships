@@ -2,6 +2,7 @@
 class ships
 {
 public:
+
 	int deck;
 	int direction;
 	bool life;

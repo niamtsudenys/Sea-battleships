@@ -37,7 +37,7 @@ public:
 
 	std::vector <ships> shipsPlayer;
 
-	std::vector<int> dirs{ 3, 2, 1, 0 };       // konteiner dlya hraneniya napravleniya poiska korablya chtoby dobity
+	std::vector<int> dirs{ 3, 2, 1, 0 };      // konteiner dlya hraneniya napravleniya poiska korablya chtoby dobity
 
 	player();
 	~player();

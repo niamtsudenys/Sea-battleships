@@ -8,7 +8,7 @@ class cursor
 {
 public:
 
-    ///////////////////////////////////  polojenie cursora v console  /////////////////////////////
+    ///////////////////////////////////  polojenie cursora v console  ////////////////////////////
     enum class color
     {
         black, blue, green, cyan, red, magenta, brown, lightgray, darkgray,
@@ -21,7 +21,7 @@ public:
 
     void gotoxy(int x, int y);
 
-    ///////////////////////////////////  polojenie myshy v console  /////////////////////////////
+    ///////////////////////////////////  polojenie myshy v console  ////////////////////////////
 
     std::vector<int> mousePosition{ 0, 0 };  // conteiner dlya hraneniya coordinat mishki
 

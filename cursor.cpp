@@ -18,7 +18,7 @@ void cursor::posXY()
     GetConsoleMode(hin, &prev_mode);
     SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_EXTENDED_FLAGS | (prev_mode & ~ENABLE_QUICK_EDIT_MODE));
 
-    SetConsoleMode(hin, ENABLE_MOUSE_INPUT); // razreshaem obrabotku mishi
+    SetConsoleMode(hin, ENABLE_MOUSE_INPUT); //  razreshaem obrabotku mishi
 
 
     ReadConsoleInput(hin, &InputRecord, 1, &Events); // schityvanie 
