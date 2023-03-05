@@ -15,21 +15,24 @@ int main()
 
 	while (true)
 	{
-		if (returnLogic == "f")
+		if (returnLogic == "f")              // pervyi vhod v input
 			referi.input();
 		else if (returnLogic == "c")
 			referi.input();
 		else if (returnLogic == "r")
-			referi.restart();
+			referi.restart(false);
+		else if (returnLogic == "m")
+			referi.restart(true);
 
 		while (1)
 		{
 			returnLogic = referi.logic();
 
-			if (returnLogic == "r")
+			if (returnLogic == "r")          // restart s random set ships
 				break;
-
-			if (returnLogic == "c")
+			else if (returnLogic == "m")          // restart s manual set ships
+				break;
+			else if (returnLogic == "c")          // kapitulyatsyia man
 				break;
 		}
 	}
