@@ -347,6 +347,8 @@ std::string referees::logic()
 
 			showScore();
 
+			SaveData.saveDataInFile(man.victory, bot.victory);
+
 			return "c";
 		}
 	}
@@ -368,6 +370,8 @@ std::string referees::logic()
 			man.message(man.sms.at(8), 2);
 			++bot.victory;
 		}
+
+		SaveData.saveDataInFile(man.victory, bot.victory);
 
 		showScore();
 
