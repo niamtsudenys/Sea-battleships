@@ -7,9 +7,9 @@ int main()
 	srand(time(NULL));
 	
 	referees referi;
-	saveData SaveData;
-
-	SaveData.getDataFromFile(referi);        // scityvaem danye iz file chtoby obnovity kolichestvo poped man i bot
+	
+	// scityvaem danye iz file chtoby obnovity kolichestvo poped man i bot
+	referi.SaveData.getDataFromFile(referi.man.victory, referi.bot.victory); 
 
 	referi.showScreen();                     // risuem console
 
