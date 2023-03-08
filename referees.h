@@ -1,5 +1,6 @@
 #pragma once
 #include "player.h"
+#include "saveData.h"
 
 class referees
 {
@@ -13,6 +14,8 @@ public:
 
 	player man;
 	player bot;
+
+	saveData SaveData;
 
 	enum class litters { p, u, t, i, n, X, Y, I, L, O };
 

@@ -401,7 +401,7 @@ void player::drawOnTheField(int numberField)
 	}
 	else if (numberField == 2)
 	{
-		coordX0 = 70;              // coordinaty pervoi tochki polya bota
+		coordX0 = 70;                                 // coordinaty pervoi tochki polya bota
 		coordY0 = 11;
 
 		for (int i = 0; i < sizeField; ++i)
@@ -910,7 +910,6 @@ void player::navedenieNaTseliMishkoi()
 	SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_EXTENDED_FLAGS | (prev_mode & ~ENABLE_QUICK_EDIT_MODE));
 
 	SetConsoleMode(hin, ENABLE_MOUSE_INPUT); // razreshaem obrabotku mishi
-
 
 	ReadConsoleInput(hin, &InputRecord, 1, &Events); // schityvanie 
 
