@@ -15,4 +15,3 @@ public:
 
 	void getDataFromFile(int& victoryMan, int& victoryBot);
 };
-

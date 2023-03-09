@@ -18,10 +18,9 @@ void cursor::posXY()
     GetConsoleMode(hin, &prev_mode);
     SetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), ENABLE_EXTENDED_FLAGS | (prev_mode & ~ENABLE_QUICK_EDIT_MODE));
 
-    SetConsoleMode(hin, ENABLE_MOUSE_INPUT); //  razreshaem obrabotku mishi
+    SetConsoleMode(hin, ENABLE_MOUSE_INPUT);                                        //  razreshaem obrabotku mishi
 
-
-    ReadConsoleInput(hin, &InputRecord, 1, &Events); // schityvanie 
+    ReadConsoleInput(hin, &InputRecord, 1, &Events);                                // schityvanie 
 
     if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) // levaya knopka
     {
@@ -30,8 +29,5 @@ void cursor::posXY()
 
         mousePosition.at(0) = coord.X;
         mousePosition.at(1) = coord.Y;
-
-        //coord.X = 0;
-       // coord.Y = 0;
     }
 }

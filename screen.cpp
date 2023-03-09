@@ -49,7 +49,7 @@ void screen::paintLateralShips(int coordinates, int numberOfDecks, int colorLate
 
 void screen::paintField()
 {
-	//////////////////////////////////////////////field1////////////////////////////
+	// field man
 	gotoxy(30, 10);
 	set_col(color::black, color::white);
 	std::cout << "p u t i n X Y I L O ";
@@ -75,7 +75,7 @@ void screen::paintField()
 		}
 	}
 
-	///////////////////////////////////////////////field2/////////////////////////////////////////
+    // field bot
 	gotoxy(70, 10);
 	set_col(color::black, color::white);
 	std::cout << "p u t i n X Y I L O ";
@@ -104,7 +104,6 @@ void screen::paintField()
 
 void screen::buttonsOnTheRightSide(bool& gameMode, int& buttonIsPressed, bool& play)
 {
-	// buttons
 	gotoxy(110, 25);
 	if (!gameMode)
 	{
@@ -222,7 +221,7 @@ void screen::message(std::string sMs, int str)
 
 	if (str == 1)
 	{
-		gotoxy(120 / 2 - 10, 13);                         // esli menyaetsya hod to chistim i 1 i 2 ryad
+		gotoxy(120 / 2 - 10, 13);                        // esli menyaetsya hod to chistim i 1 i 2 ryad
 		std::cout << "                    ";
 		gotoxy(120 / 2 - 10, 15);
 		std::cout << "                    ";
@@ -230,16 +229,16 @@ void screen::message(std::string sMs, int str)
 	}
 	else
 	{
-		gotoxy(120 / 2 - 8, 15);                        // histim tolyko vtoroi riad
+		gotoxy(120 / 2 - 8, 15);                         // histim tolyko vtoroi riad
 		std::cout << "                ";
 		gotoxy(119, 0);
 		Sleep(500);
 	}
 	
 	if (str == 1)
-		gotoxy(120 / 2 - sMs.length() / 2, 13);      // stavim kursor na 1 str
+		gotoxy(120 / 2 - sMs.length() / 2, 13);         // stavim kursor na 1 str
 	else
-		gotoxy(120 / 2 - sMs.length() / 2, 15);      // stavim kursor na 2 str
+		gotoxy(120 / 2 - sMs.length() / 2, 15);         // stavim kursor na 2 str
 		
 	if (sMs == "Welcome!")
 		set_col(color::lightblue, color::yellow);

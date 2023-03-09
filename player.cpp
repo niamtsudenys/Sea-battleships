@@ -167,7 +167,6 @@ void player::shipDataUpdate(ships& ship, int x, int y, int direction)
 int player::manualSetShips()
 {
 	message(sms.at(16));
-
 	clearMasiv();
 
 	int x = 30;                                      // coordinaty nachalynih tochek korablya
@@ -244,7 +243,7 @@ int player::manualSetShips()
 					direction += 1;
 					break;
 				case 13:
-					set = true;                // stavim korabeli
+					set = true;                 // stavim korabeli
 					break;
 				case 'b':
 					countShip = 0;
@@ -252,13 +251,13 @@ int player::manualSetShips()
 					return 1;
 					break;
 				case 'e':
-					message(sms.at(11));    // knopka exit
+					message(sms.at(11));        // knopka exit
 					Sleep(500);
 					exit(0);
 					break;
 				}
 			}
-			else              // upravlenie mishkoi
+			else                                // upravlenie mishkoi
 			{
 				navedenieNaTseliMishkoi();
 
@@ -266,7 +265,7 @@ int player::manualSetShips()
 
 				if (mousePosition.at(0) >= 30 && mousePosition.at(0) <= 49 && mousePosition.at(1) >= 11 && mousePosition.at(1) <= 20)
 				{
-					x = mousePosition.at(0); // pritsel dvigaetsya toliko togda kogda mishka vnutri polya bota
+					x = mousePosition.at(0);   // pritsel dvigaetsya toliko togda kogda mishka vnutri polya bota
 					y = mousePosition.at(1);
 				}
 
@@ -275,7 +274,7 @@ int player::manualSetShips()
 
 				if (InputRecord.Event.MouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED)
 				{
-					direction += 1;             // menyaem polojenie
+					direction += 1;            // menyaem polojenie
 				}
 
 				if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
@@ -286,7 +285,7 @@ int player::manualSetShips()
 				if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && mousePosition.at(0) >= 110
 					&& mousePosition.at(0) <= 114 && mousePosition.at(1) == 29)
 				{
-					message(sms.at(11));    // knopka exit
+					message(sms.at(11));      // knopka exit
 					Sleep(500);
 					exit(0);
 				}
@@ -305,46 +304,33 @@ int player::manualSetShips()
             
 			// ne vihodim iz polya s pravoi storony kogda sudno stoit gorizontalyno
 			if (direction == 0 && x > 50 - ship.deck * 2)
-			{
 				x = 50 - ship.deck * 2; 
-			}
 			
 			// ne vihodim iz polya s pravoi storony kogda sudno stoit vertikalino
 			if (direction == 1 && x > 30 + 2 * sizeField - 2)
-			{
 				x = 30 + 2 * sizeField - 2;     
-			}
-
+			
 			// ne vihodim iz polya s levoi storony 
 			if (x < 30)
-			{
 				x = 30;                                     
-			}
-			
+	
 			// ne vihodim iz polya snizu  kogda sudno stoit vertikalino
 			if (direction && y > 21 - ship.deck)
-			{
 				y = 21 - ship.deck;
-			}
 			
 			// ne vihodim iz polya snizu  kogda sudno stoit gorizontalyno
 			if (!direction && y > 11 + sizeField - 1)
-			{
 				y = 11 + sizeField - 1;
-			}
 			
             // ne vihodim iz polya sverhu
 			if (y < 11)
-			{
 				y = 11;
-			}
-
+			
 			if (set)
 			{
 				int i = y - 11;
 				int j = (x - 30) / 2;
 				
-
 				if (checkSet(ship.deck, i, j, direction)) // proverka vozmojnosti postanovki korablya v pole
 				{
 					// obnovlyaem danye tecuchego sudna
@@ -361,7 +347,7 @@ int player::manualSetShips()
 
 		gotoxy(120 / 2 - 3, 15);
 		set_col(color::red, color::white);
-		std::cout << (10 - countShip) << " more";
+		std::cout << (10 - countShip) << " more";        // vyvodim sms o kolichestve neustanovlenyh korabley na pole
 
 		if (countShip == 10)
 			message(sms.at(17));
@@ -377,7 +363,7 @@ void player::drawOnTheField(int numberField)
 	
 	if (numberField == 1)
 	{
-		coordX0 = 30;              // coordinaty pervoi tochki polya cheloveka
+		coordX0 = 30;                                  // coordinaty pervoi tochki polya cheloveka
 		coordY0 = 11;
 
 		for (int i = 0; i < sizeField; ++i)
@@ -411,7 +397,7 @@ void player::drawOnTheField(int numberField)
 				gotoxy(coordX0 + 2 * j, coordY0 + i);  // risuem pole s uchetom izmeneniy 
 
 				if (field[i][j] == 1)
-					set_col(color::blue, color::blue);
+					set_col(color::lightcyan, color::lightcyan);
 				else if (field[i][j] == 0)
 					set_col(color::lightcyan, color::lightcyan);
 				else if (field[i][j] == 2)
@@ -459,7 +445,7 @@ void player::attackMan(bool& turn, player& bot)
 			break;
 		}
 
-		bot.drawOnTheField(2);
+		bot.drawOnTheField(2);              // obnovlyaem pole bota
 
 		shoot = false;
 
@@ -470,7 +456,7 @@ void player::attackMan(bool& turn, player& bot)
 
 		int ch = 0;
 
-		if (!mouseControl)   // upravlenie klaviaturoi
+		if (!mouseControl)      // upravlenie klaviaturoi
 		{
 			ch = _getch();
 
@@ -530,9 +516,7 @@ void player::attackMan(bool& turn, player& bot)
 				x = x - 1;
 
 			if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
-			{
 				shoot = true;  // vystrel
-			}
 
 			if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && mousePosition.at(0) >= 82
 				&& mousePosition.at(0) <= 93 && mousePosition.at(1) == 29)
@@ -577,7 +561,7 @@ void player::attackMan(bool& turn, player& bot)
 			if (bot.field[i][j] == 0)
 			{
 				message(sms.at(5), 2);          // sms shto man ne popal
-				Sleep(700);                     // zaderjka 
+				Sleep(500);                     // zaderjka 
 				bot.field[i][j] = 3;
 				turn = !turn;                   // hod perehodit k botu
 
@@ -593,7 +577,7 @@ void player::attackMan(bool& turn, player& bot)
 			if (bot.field[i][j] == 1)
 			{
 				message(sms.at(3), 2);          // sms shto man popal
-				Sleep(400);
+				Sleep(350);
 
 				bot.field[i][j] = 2;
 				checkIfTheShipIsAlive(bot);     // proveryaem esli sudno potopili
@@ -609,7 +593,7 @@ void player::attackMan(bool& turn, player& bot)
 void player::attackBot(bool& turn, player& man)
 {
 	message(sms.at(2), 1);                      // sms chto nash hod
-	Sleep(1000);
+	Sleep(700);
 
 	while (true)
 	{
@@ -641,11 +625,11 @@ void player::attackBot(bool& turn, player& man)
 			// esly popadaem v pustoe mesto to gde net korablya to otmechaem chto po etoy cletke byl vystrel
 			if (man.field[firstShotI][firstShotJ] == 0)
 			{
-				message(sms.at(5), 2);            // sms shto bot ne popal
-				Sleep(1000);                       // zaderjka 
+				message(sms.at(5), 2);                   // sms shto bot ne popal
+				Sleep(500);                             // zaderjka 
 
 				man.field[firstShotI][firstShotJ] = 3;
-				turn = !turn;                     // hod perehodit k man
+				turn = !turn;                            // hod perehodit k man
 
 				man.drawOnTheField(1);
 
@@ -654,12 +638,12 @@ void player::attackBot(bool& turn, player& man)
 
 			if (man.field[firstShotI][firstShotJ] == 1)
 			{
-				message(sms.at(4), 2);             // sms shto bot popal
-				Sleep(1000);
+				message(sms.at(4), 2);                  // sms shto bot popal
+				Sleep(500);
 
 				man.field[firstShotI][firstShotJ] = 2;
 
-				if (!checkIfTheShipIsAlive(man))    // proveryaem esli sudno potopili
+				if (!checkIfTheShipIsAlive(man))        // proveryaem esli sudno potopili
 					shootMod = true;
 
 				coordPritselX = firstShotJ;             // zapominaem coord pervogoego vystrela po korabliu
@@ -718,7 +702,7 @@ void player::attackBot(bool& turn, player& man)
 			if (man.field[coordPritselY][coordPritselX] == 0)
 			{
 				message(sms.at(5), 2);                   // sms shto bot ne popal
-				Sleep(1000);                             // zaderjka 
+				Sleep(500);                             // zaderjka 
 
 				man.field[coordPritselY][coordPritselX] = 3;
 				turn = !turn;                            // hod perehodit k man
@@ -746,16 +730,16 @@ void player::attackBot(bool& turn, player& man)
 
 			if (man.field[coordPritselY][coordPritselX] == 1)
 			{
-				message(sms.at(4), 2);             // sms shto bot popal
-				Sleep(1000);
+				message(sms.at(4), 2);                  // sms shto bot popal
+				Sleep(500);
 
 				man.field[coordPritselY][coordPritselX] = 2;
 
-				if (checkIfTheShipIsAlive(man))    // proveryaem esli sudno potopili
+				if (checkIfTheShipIsAlive(man))         // proveryaem esli sudno potopili
 				{
-					shootMod = false;              // bot opiaty budet streliati random
-					dirs.clear();                  // ohichaem vector
-					dirs = { 3, 2, 1, 0 };         // posle togo kak zatopili korabeli vostanavlivaem vse napravleniya
+					shootMod = false;                   // bot opiaty budet streliati random
+					dirs.clear();                       // ohichaem vector
+					dirs = { 3, 2, 1, 0 };              // posle togo kak zatopili korabeli vostanavlivaem vse napravleniya
 				}
 
 				man.drawOnTheField(1);
@@ -763,38 +747,22 @@ void player::attackBot(bool& turn, player& man)
 			}
 		}
 	}
-	gotoxy(0, 0);
-	set_col(color::red, color::white);
-	std::cout << "         ";
-	gotoxy(0, 1);
-	set_col(color::red, color::white);
-	std::cout << "          ";
-	gotoxy(0, 0);
-	set_col(color::red, color::white);
-	std::cout << shootMod;
-	gotoxy(0, 1);
-	set_col(color::red, color::white);
-	for (int i = 0; i < dirs.size(); ++i)
-	{
-		std::cout << dirs.at(i) << " ";
-	}
 }
 
 bool player::checkIfTheShipIsAlive(player& Player)
 {
-	bool drowned = false;
-	int countLifeDeck = 0;
+	bool drowned = false;                               // peremenaya v kotoroy budem hranity info utonulo sudno ili net
+	int countLifeDeck = 0;                              // kolichestvo potoplenyh palub
 	
 	for (auto& ship : Player.shipsPlayer)
 	{
 		drowned = false;
 
-		if (ship.life) // proverku vypolnyaem toliko esli danyi korabely ne potoplen
+		if (ship.life)                                  // proverku vypolnyaem toliko esli danyi korabely ne potoplen
 		{
-			// proveryaem esli korabeli polnostiu potopleny
-			switch (ship.direction)
+			switch (ship.direction)                    
 			{
-			case 0:
+			case 0:                                    // korabeli stoit gorizontalyno
 				countLifeDeck = 0;
 
 				for (int i = 0; i < ship.deck; ++i)
@@ -809,7 +777,7 @@ bool player::checkIfTheShipIsAlive(player& Player)
 				}
 
 				break;
-			case 1:
+			case 1:                                     // korabeli stoit vertikalyno
 				countLifeDeck = 0;
 
 				for (int i = 0; i < ship.deck; ++i)
@@ -828,10 +796,10 @@ bool player::checkIfTheShipIsAlive(player& Player)
 
 			if (drowned)
 			{
-				message(sms.at(6), 2);          // sms shto korabely ytonul
-				Sleep(600);
-				ship.life = false;              // korabely potoplen
-				ship.color = 2;                 // bokovoy korablik perekrashivaem v krasnyi tsvet
+				message(sms.at(6), 2);                  // sms shto korabely ytonul
+				Sleep(450);
+				ship.life = false;                      // korabely potoplen
+				ship.color = 2;                         // bokovoy korablik perekrashivaem v krasnyi tsvet
 				paintLateralShips(ship.latteralCoordinates, ship.deck, ship.color);
 				sketchingTheBorderAroundTheSunkenShip(ship, Player);
 
@@ -881,24 +849,6 @@ void player::sketchingTheBorderAroundTheSunkenShip(ships& ship, player& Player)
 		}
 
 		break;
-	}
-}
-
-void player::showMasiv()
-{
-	gotoxy(0, 0);
-	for (int i = 0; i < 10; ++i)
-		std::cout << shipsPlayer.at(i).latteralCoordinates << " ";
-
-	std::cout << std::endl;
-
-	for (int i = 0; i < 10; ++i)
-	{
-		for (int j = 0; j < 10; ++j)
-		{
-			std::cout << field[i][j] << " ";
-		}
-		std::cout << std::endl;
 	}
 }
 
@@ -985,34 +935,25 @@ std::string player::mouseOrKeybordControl(int i, int instalOrHit)
 				{
 					i = 0;
 
-					mousePosition.at(0) = 0;
-					mousePosition.at(1) = 0;
-
 					break;
 				}
 				else if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (mousePosition.at(0) >= 50 && mousePosition.at(0) < 70) && mousePosition.at(1) == 15)
 				{
 					i = 1;
 
-					mousePosition.at(0) = 0;
-					mousePosition.at(1) = 0;
-
 					break;
 				}
 				else if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (mousePosition.at(0) >= 100 && mousePosition.at(0) < 105) && mousePosition.at(1) == 29)
 				{
 					clearLiterEandB();
+
 					return "back";
-					break;
 				}
 				else if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (mousePosition.at(0) >= 110 && mousePosition.at(0) < 115) && mousePosition.at(1) == 29)
 				{
 					message(sms.at(11));
 					Sleep(500);
 					exit(0);
-					mousePosition.at(0) = 0;
-					mousePosition.at(1) = 0;
-					break;
 				}
 
 				forMouseOrKeybordControl(i, instalOrHit);

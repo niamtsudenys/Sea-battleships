@@ -21,11 +21,11 @@ public:
 
 	referees();
 
-	void showScreen();   // pervoe chto vidit polyzovately
+	void showScreen();     // pervoe chto vidit polyzovately
 	       
 	void loadShips();
 
-	void input();       // vybor rejima igry
+	void input();         // vybor rejima igry
 
 	std::string logic();
 

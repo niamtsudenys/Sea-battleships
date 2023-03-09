@@ -32,11 +32,11 @@ int main()
 		{
 			returnLogic = referi.logic();
 
-			if (returnLogic == "r")               // restart s random set ships
+			if (returnLogic == "r")           // restart s random set ships
 				break;
-			else if (returnLogic == "m")          // restart s manual set ships
+			else if (returnLogic == "m")      // restart s manual set ships
 				break;
-			else if (returnLogic == "c")          // kapitulyatsyia man
+			else if (returnLogic == "c")      // kapitulyatsyia man
 				break;
 		}
 	}

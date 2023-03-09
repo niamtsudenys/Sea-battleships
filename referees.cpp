@@ -1,7 +1,6 @@
 #include "referees.h"
 
-referees::referees() :
-	gameMode(0), gameOver(0), buttonIsPressed(1), play(0), turn(0) {}
+referees::referees() : gameMode(0), gameOver(0), buttonIsPressed(1), play(0), turn(0) {}
 
 void referees::showScreen()
 {
@@ -12,15 +11,11 @@ void referees::showScreen()
 	man.inscriptionSeaAndBattleships();
 
 	for (int i = 0; i < 10; ++i)
-	{
 		man.paintLateralShips(man.coordXYLateralShipsMan[i], man.decksShips[i], 0);
-	}
-
+	
 	for (int i = 0; i < 10; ++i)
-	{
 		bot.paintLateralShips(bot.coordXYLateralShipsBot[i], bot.decksShips[i], 0);
-	}
-
+	
 	man.paintField();
 
 	man.bottomButtons(gameMode, buttonIsPressed, play);
@@ -50,16 +45,16 @@ link2:
 			// bokovye knopki
 			switch (ch)
 			{
-			case 's':   // s  vniz            
+			case 's':                          // s  vniz            
 				++buttonIsPressed;
 				break;
-			case 'w':   // w  vverh           
+			case 'w':                          // w  vverh           
 				--buttonIsPressed;
 				break;
-			case 80:   //  vniz            
+			case 80:                           //  vniz            
 				++buttonIsPressed;
 				break;
-			case 72:   //  vverh           
+			case 72:                           //  vverh           
 				--buttonIsPressed;
 				break;
 			}
@@ -88,16 +83,14 @@ link2:
 				{
 					buttonIsPressed = 1;              // knopka Randomly
 					gameMode = 1;
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+				
 					break;
 				}
 				if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0) >= 110 && man.mousePosition.at(0) < 116) && man.mousePosition.at(1) == 27)
 				{
 					buttonIsPressed = 2;              // knopka manual
 					gameMode = 1;
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+
 					break;
 				}
 				else if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0) >= 110 && man.mousePosition.at(0) < 115) && man.mousePosition.at(1) == 29)
@@ -105,15 +98,14 @@ link2:
 					man.message(man.sms.at(11));      // knopka Exit
 					Sleep(500);
 					exit(0);
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+					
 					break;
 				}
 			}
 		}
 	}
 
-	if (buttonIsPressed == 1)                // stavim korably
+	if (buttonIsPressed == 1)                        // stavim korably
 		man.randomSetShips();      
 	else if (buttonIsPressed == 2)
 	{
@@ -211,47 +203,41 @@ link:
 			{
 				man.posXY();
 
-				if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 63 && man.mousePosition.at(0) < 67) && man.mousePosition.at(1) == 29)
+				if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 
+					63 && man.mousePosition.at(0) < 67) && man.mousePosition.at(1) == 29)
 				{
 					buttonIsPressed = 0;
 					man.bottomButtons(gameMode, buttonIsPressed, play);
 					play = 1;
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+					
 					break;
 				}
-				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0)
-					>= 71 && man.mousePosition.at(0) < 78) && man.mousePosition.at(1) == 29)
+				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 
+					71 && man.mousePosition.at(0) < 78) && man.mousePosition.at(1) == 29)
 				{
 					shuffleManShips();
 					buttonIsPressed = 1;
 					man.bottomButtons(gameMode, buttonIsPressed, play);
 					goto link;
-					
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
 				}
-				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0)
-					>= 100 && man.mousePosition.at(0) < 105) && man.mousePosition.at(1) == 29)
+				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 
+					100 && man.mousePosition.at(0) < 105) && man.mousePosition.at(1) == 29)
 				{
 					buttonIsPressed = 4;
 					man.bottomButtons(gameMode, buttonIsPressed, play);
 					Sleep(150);
 					back();
 					goto link2;
-					
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+
 					break;
 				}
-				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0)
-					>= 110 && man.mousePosition.at(0) < 115) && man.mousePosition.at(1) == 29)
+				else if ((man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && man.mousePosition.at(0) >= 
+					110 && man.mousePosition.at(0) < 115) && man.mousePosition.at(1) == 29)
 				{
 					man.message(man.sms.at(11));
 					Sleep(500);
 					exit(0);
-					man.mousePosition.at(0) = 0;
-					man.mousePosition.at(1) = 0;
+
 					break;
 				}
 			}
@@ -288,8 +274,6 @@ link:
 	man.bottomButtons(gameMode, buttonIsPressed, play);
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 void referees::firstMove() { turn = rand() % 2; }      // true man hodit pervym, false - bot
 
 void referees::coordinatesFirstCellField()
@@ -314,19 +298,13 @@ std::string referees::logic()
 		showScore();
 		
 		if (man.countShip == 0 || bot.countShip == 0)
-		{
 			gameOver = true;
-		}
 		
 		if (turn)
-		{
 			man.attackMan(turn, bot);
-		}
 		else
-		{
 			bot.attackBot(turn, man);
-		}
-
+		
 		if (man.capitulation)
 		{
 			back();
@@ -341,7 +319,7 @@ std::string referees::logic()
 
 			gameOver = 0;
 			Sleep(2000);
-			
+
 			man.lost = 1;
 			++bot.victory;
 
@@ -368,6 +346,7 @@ std::string referees::logic()
 		{
 			man.message(man.sms.at(10));
 			man.message(man.sms.at(8), 2);
+
 			++bot.victory;
 		}
 
@@ -394,8 +373,12 @@ std::string referees::logic()
 void referees::shuffleManShips()
 {
 	for (int i = 0; i < man.sizeField; ++i)
+	{
 		for (int j = 0; j < man.sizeField; ++j)
+		{
 			man.field[i][j] = 0;
+		}
+	}
 	
 	man.randomSetShips();
 	man.drawOnTheField(1);
@@ -540,15 +523,14 @@ std::string referees::menuAfterTheBattle()
 					i = 0;
 					break;
 				}
-				else if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0)
-					>= 50 && man.mousePosition.at(0) < 70) && man.mousePosition.at(1) == 15)
+				else if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0) >= 
+					50 && man.mousePosition.at(0) < 70) && man.mousePosition.at(1) == 15)
 				{
 					i = 1;
-
 					break;
 				}
-				else if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0)
-					>= 110 && man.mousePosition.at(0) < 115) && man.mousePosition.at(1) == 29)
+				else if (man.InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED && (man.mousePosition.at(0) >=
+					110 && man.mousePosition.at(0) < 115) && man.mousePosition.at(1) == 29)
 				{
 					man.message(man.sms.at(11));
 					Sleep(500);
@@ -556,7 +538,6 @@ std::string referees::menuAfterTheBattle()
 				}
 
 				forMenuAfterTheBattlel(i);
-
 			}
 		}
 

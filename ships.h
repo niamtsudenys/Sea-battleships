@@ -1,4 +1,5 @@
 #pragma once
+
 class ships
 {
 public:
@@ -10,7 +11,6 @@ public:
 	int color;
 	int coordX;
 	int coordY;
-
 	bool takeDamage;
 
 	ships();

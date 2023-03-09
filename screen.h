@@ -11,9 +11,8 @@ public:
 
 	std::vector<int> coordXYLateralShipsMan{ 612, 614, 1514, 616, 1316, 2016, 618, 1118, 1618, 2118 };
 	std::vector<int> coordXYLateralShipsBot{ 9612, 9614, 10514, 9616, 10316, 11016, 9618, 10118, 10618, 11118 };
-
-	// jizni korablei, kolichestvo palub
-	std::vector<int> decksShips{ 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };
+	
+	std::vector<int> decksShips{ 4, 3, 3, 2, 2, 2, 1, 1, 1, 1 };   // jizni korablei, kolichestvo palub
 
 	std::vector<std::string> sms
 	{
@@ -23,7 +22,7 @@ public:
 		"Go random", "Go manual"
 	};
 	
-	void fon();     // zalivka ekrana
+	void fon();                                                      // zalivka ekrana
 
 	void inscriptionSeaAndBattleships(); 
 

@@ -37,7 +37,7 @@ public:
 
 	std::vector <ships> shipsPlayer;
 
-	std::vector<int> dirs{ 3, 2, 1, 0 };      // konteiner dlya hraneniya napravleniya poiska korablya chtoby dobity
+	std::vector<int> dirs{ 3, 2, 1, 0 };       // konteiner dlya hraneniya napravleniya poiska korablya chtoby dobity
 
 	player();
 	~player();
@@ -47,7 +47,7 @@ public:
 
 	void randomSetShips();
 	
-	//proverka vozmojnosti postanovki korablya
+	// proverka vozmojnosti postanovki korablya
 	bool checkSet(int shipSize, int x, int y, int direction);
 
 	// ustanovka corablya na pole
@@ -57,7 +57,7 @@ public:
 
 	int manualSetShips();
 
-	//risuem pole  1 - man, 2 - pole bota
+	// risuem pole  1 - man, 2 - pole bota
 	void drawOnTheField(int numberField = 1);
 
 	void clearMasiv();                         
